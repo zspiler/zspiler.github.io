@@ -7,7 +7,7 @@
 </template>
 
 <script setup lang="ts"> 
-const albums = ['japan', 'sailing']; // TODO API?
+const albums = ['japan_18', 'japan_24', 'random', 'sailing']; // TODO API?
 
 </script>
 
