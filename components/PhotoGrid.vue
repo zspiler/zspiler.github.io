@@ -1,7 +1,18 @@
 <template>
-    <div class="photo-grid">
-        <div class="photo" v-for="image in images" :key="image" ><img :src="`/images/${album}/${image}`" :alt="`Image ${image}`"></div>
+    <div v-if="modeStore.mode === 'grid'" class="photo-grid">
+        <div 
+          @click="goToCarousel" 
+          class="photo" 
+          v-for="image in images" :key="image" 
+        >
+          <img :src="`/images/${album}/${image}`" :alt="`Image ${image}`">
+        </div>
     </div>
+
+    <div v-else>
+      <Carousel v-if="images" :image-urls="imageUrls" />
+    </div>
+
 </template>
 
 <script setup lang="ts">
@@ -9,7 +20,16 @@ const props = defineProps<{
   album: string;
 }>();
 
-const { data: images } = await useFetch<string[]>(`/api/images/${props.album}`);
+const modeStore = useModeStore();
+
+const { data } = await useFetch<string[]>(`/api/images/${props.album}`);
+const images = data.value ?? [];
+
+const imageUrls = images.map(image => `/images/${props.album}/${image}`);
+
+function goToCarousel() {
+  modeStore.setMode('carousel')
+}
 </script>
 
 <style scoped lang="less">
@@ -17,11 +37,11 @@ const { data: images } = await useFetch<string[]>(`/api/images/${props.album}`);
 .photo-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-  gap: 10px; 
+  gap: 4px; 
   padding: 10px;
   width: 100%;
-  max-width: 1000px; 
-  margin: 0 auto; /* center the grid */
+  max-width: 1400px; 
+  margin: 0 auto; 
 }
 
 .photo {
@@ -29,6 +49,10 @@ const { data: images } = await useFetch<string[]>(`/api/images/${props.album}`);
   overflow: hidden;
   width: 100%;
   padding-top: 100%;
+  
+  &:hover {
+    cursor: pointer;
+  }
 
   img {
     position: absolute;
@@ -36,14 +60,12 @@ const { data: images } = await useFetch<string[]>(`/api/images/${props.album}`);
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Cover the container without distortion */
-    transition: transform 0.3s ease; /* Smooth zoom effect on hover */
+    object-fit: cover;
+    transition: transform 0.3s ease; 
   }
 
   &:hover img {
-    transform: scale(1.1); /* Slight zoom-in effect */
+    transform: scale(1.1);
   }
 }
-
-
 </style>
