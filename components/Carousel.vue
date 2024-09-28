@@ -1,20 +1,34 @@
 <template>
     <div class="container">
-        <div class="carousel">
-            <img :src="`${imageUrls[imageIndex]}`" :alt="`Image`">
+        <div class="embla" ref="emblaRef">
+            <div class="embla-container">
+                <div v-for="(imageUrl, index) in imageUrls" class="embla-slide">
+                    <img :src="imageUrl" alt="Image">
+                    <label class="counter">{{ index + 1 }} / {{ imageUrls.length }}</label>
+                </div>
+            </div>
         </div>
-        <CarouselPreview v-model:image-index="imageIndex" :imageUrls="imageUrls" /> 
     </div>
-    
 </template>
 
 <script setup lang="ts">
-const props = defineProps<{
+import emblaCarouselVue from 'embla-carousel-vue'
+
+defineProps<{
   imageUrls: string[];
 }>();
 
+const [emblaRef, emblaApi] = emblaCarouselVue()
 
-const imageIndex = ref(0)
+function logSlidesInView(emblaApi) {
+    console.log(emblaApi.slidesInView())
+}
+
+onMounted(() => {
+    if (emblaApi.value) {
+        emblaApi.value.on('slidesInView', logSlidesInView)
+    }
+})
 
 onMounted(() => {
     window.addEventListener('keydown', onKeyDown)
@@ -32,9 +46,9 @@ function onKeyDown(event: KeyboardEvent) {
     event.stopPropagation()
 
     if (event.key === 'ArrowRight') {
-        imageIndex.value = Math.min(imageIndex.value + 1, props.imageUrls.length - 1)
+        emblaApi.value?.canScrollNext() && emblaApi.value.scrollNext()
     } else if (event.key === 'ArrowLeft') {
-        imageIndex.value = Math.max(imageIndex.value - 1, 0) 
+        emblaApi.value?.canScrollPrev() && emblaApi.value.scrollPrev()
     }
 }
 </script>
@@ -47,25 +61,43 @@ function onKeyDown(event: KeyboardEvent) {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    // width: 100%;
-    // height: 100%;
     gap: 10px;
-    // width: 100vw;
-}
-
-.carousel {
-    display: flex;
-    justify-content: center;
-    background-color: blue;
-    height: 80%;
+    width: 100vw;
 }
 
 img {
     top: 0;
     left: 0;
     max-width: 100%;
-    max-height: 100%;
+    height: 95%;
+    // max-height: 100%;
     object-fit: cover;
+    user-select: none;
 }
 
+.counter {
+    color: gray;
+}
+
+.embla {
+    overflow: hidden;
+    height: 80%;
+    width: 100%;
+}
+
+.embla-container {
+    height: 80%;
+    display: flex;
+}
+
+.embla-slide {
+    position: relative;
+    flex: 0 0 100%;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
 </style>
