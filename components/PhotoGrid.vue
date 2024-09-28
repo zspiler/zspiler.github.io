@@ -36,7 +36,7 @@ function goToCarousel() {
 
 .photo-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 4px; 
   padding: 10px;
   width: 100%;

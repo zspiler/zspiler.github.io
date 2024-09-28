@@ -47,8 +47,10 @@ function onKeyDown(event: KeyboardEvent) {
     justify-content: center;
     align-items: center;
     height: 100vh;
+    // width: 100%;
+    // height: 100%;
     gap: 10px;
-    width: 100vw;
+    // width: 100vw;
 }
 
 .carousel {
