@@ -69,7 +69,7 @@ img {
     top: 0;
     left: 0;
     max-width: 100%;
-    height: 95%;
+    height: 100%;
     // max-height: 100%;
     object-fit: cover;
     user-select: none;
