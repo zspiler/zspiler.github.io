@@ -1,5 +1,5 @@
 <template>
     <div>
-        Gallery Index!
+        <AlbumsGrid />
     </div>
 </template>
