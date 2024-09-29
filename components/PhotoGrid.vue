@@ -1,17 +1,18 @@
 <template>
-    <div v-if="modeStore.mode === 'grid'" class="photo-grid">
+    <div v-if="view === 'grid'" class="photo-grid">
         <div 
-          @click="goToCarousel" 
+          @click="goToCarousel(index)" 
           class="photo" 
-          v-for="image in images" :key="image" 
+          v-for="(image, index) in images" :key="image" 
         >
           <img :src="`/images/${album}/${image}`" :alt="`Image ${image}`">
         </div>
     </div>
 
     <div v-else>
-      <Carousel v-if="images" :image-urls="imageUrls" />
-    </div>
+      <!-- TODO make carousel /gallery/../browse, send initial via route -->
+      <Carousel v-if="images" :image-urls="imageUrls" :initial-slide="clickedSlide" />
+    </div> 
 
 </template>
 
@@ -20,16 +21,20 @@ const props = defineProps<{
   album: string;
 }>();
 
-const modeStore = useModeStore();
+const view = ref('grid');
+
+const clickedSlide = ref(0);
 
 const { data } = await useFetch<string[]>(`/api/images/${props.album}`);
 const images = data.value ?? [];
 
 const imageUrls = images.map(image => `/images/${props.album}/${image}`);
 
-function goToCarousel() {
-  modeStore.setMode('carousel')
+function goToCarousel(index: number) {
+  clickedSlide.value = index;
+  view.value = 'carousel';
 }
+
 </script>
 
 <style scoped lang="less">

@@ -14,19 +14,27 @@
 <script setup lang="ts">
 import emblaCarouselVue from 'embla-carousel-vue'
 
-defineProps<{
+const props = defineProps<{
   imageUrls: string[];
+  initialSlide?: number;
 }>();
 
-const [emblaRef, emblaApi] = emblaCarouselVue()
+const [emblaRef, emblaApi] = emblaCarouselVue({duration: 0})
 
 function logSlidesInView(emblaApi) {
     console.log(emblaApi.slidesInView())
+    console.log(emblaApi);
 }
 
 onMounted(() => {
     if (emblaApi.value) {
         emblaApi.value.on('slidesInView', logSlidesInView)
+        if (props.initialSlide) {
+
+            // NOTE hack to open carousel at Nth slide
+            emblaApi.value.scrollTo(props.initialSlide)
+            emblaApi.value.reInit({duration: 25}) 
+        }
     }
 })
 

@@ -54,18 +54,18 @@ async function openAlbum(albumName: string) {
     left: 0;
     height: 100%;
     width: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.2);
     color: white;
     text-align: center;
     display: flex;
     justify-content: center;
     align-items: center;
-    opacity: 0;
-    transition: opacity 0.3s ease;
+    opacity: 1;
+    transition: opacity 0.8s ease;
     font-size: 1.5rem;
 
     &:hover {
-        opacity: 1;
+        opacity: 0;
     }
 }
 
@@ -86,11 +86,12 @@ async function openAlbum(albumName: string) {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.3s ease; 
+    transition: transform 0.8s ease; 
+    // transform: scale(0.8);
   }
 
   &:hover img {
-    transform: scale(1.1);
+    // transform: scale(1);
   }
 }
 </style>

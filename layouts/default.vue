@@ -1,9 +1,6 @@
 <template>
-        <h1 class="header">lekowoo</h1>
-        <!-- TODO album menu etc. only on gallery path? -->
-        <AlbumMenu class="album-menu" />
-        <ModeIcons class="mode-icons" />
-        <slot />
+    <a href="/" class="header"> <h1>lekowoo</h1> </a>
+    <slot />
 </template>
 
 <style lang="less" scoped>
@@ -17,6 +14,14 @@
     width: 150px;
     margin: 15px;
     z-index: 1000;
+    border: 3px solid red;
+    padding: 10px 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+
 }
 
 .content {
