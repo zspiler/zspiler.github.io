@@ -17,6 +17,8 @@
 </template>
 
 <script setup lang="ts">
+import imageList from '~/static/data/imageList.json';
+
 const props = defineProps<{
   album: string;
 }>();
@@ -25,9 +27,7 @@ const view = ref('grid');
 
 const clickedSlide = ref(0);
 
-const { data } = await useFetch<string[]>(`/api/images/${props.album}`);
-const images = data.value ?? [];
-
+const images = (imageList as Record<string, string[]>)[props.album] ?? [];
 const imageUrls = images.map(image => `/images/${props.album}/${image}`);
 
 function goToCarousel(index: number) {

@@ -7,7 +7,9 @@
 </template>
 
 <script setup lang="ts"> 
-const albums = ['japan_18', 'japan_24', 'random', 'sailing']; // TODO API?
+import imageList from '~/static/data/imageList.json';
+
+const albums = Object.keys(imageList)
 
 </script>
 
