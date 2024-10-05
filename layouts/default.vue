@@ -1,5 +1,5 @@
 <template>
-    <a href="/" class="header"> <h1>lekowoo</h1> </a>
+    <a href="/" class="header"> <h1>zspiler</h1> </a>
     <slot />
 </template>
 
