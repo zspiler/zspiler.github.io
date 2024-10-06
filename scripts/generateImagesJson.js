@@ -6,7 +6,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.join(path.dirname(__filename), '..');
 
 async function generateImageList() {
-    const baseDir = path.join(__dirname, 'public/images');
+    const baseDir = path.join(__dirname, 'public/images/original');
 
     const albums = fs.readdirSync(baseDir, { withFileTypes: true })
         .filter(dirent => dirent.isDirectory())
@@ -23,7 +23,7 @@ async function generateImageList() {
         imageData[album] = images;
     }
 
-    const outputDir = path.join(__dirname, '..', 'static', 'data');
+    const outputDir = path.join(__dirname, 'static', 'data');
     if (!fs.existsSync(outputDir)) {
         fs.mkdirSync(outputDir, { recursive: true });
     }

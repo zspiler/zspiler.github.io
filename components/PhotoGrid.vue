@@ -4,14 +4,24 @@
           @click="goToCarousel(index)" 
           class="photo" 
           v-for="(image, index) in images" :key="image" 
-        >
-          <img :src="`/images/${album}/${image}`" :alt="`Image ${image}`">
+        >           
+          <img 
+            :src="`/images/original/${album}/${image}`" 
+            :srcset="`
+              /images/resized/${album}/${getResizedImageFilename(image, 420)} 320w, 
+              /images/resized/${album}/${getResizedImageFilename(image, 640)} 640w, 
+              /images/resized/${album}/${getResizedImageFilename(image, 1024)} 1024w, 
+              /images/resized/${album}/${getResizedImageFilename(image, 1920)} 1920w
+            `" 
+            sizes="100vw, (min-width: 640px) 50vw, (min-width: 1024px) 400px"
+            :alt="`Image ${index}`" 
+          />
         </div>
     </div>
 
     <div v-else>
       <!-- TODO make carousel /gallery/../browse, send initial via route -->
-      <Carousel v-if="images" :image-urls="imageUrls" :initial-slide="clickedSlide" />
+      <Carousel v-if="images" :album="album"  :initial-slide="clickedSlide" />
     </div> 
 
 </template>
@@ -28,7 +38,6 @@ const view = ref('grid');
 const clickedSlide = ref(0);
 
 const images = (imageList as Record<string, string[]>)[props.album] ?? [];
-const imageUrls = images.map(image => `/images/${props.album}/${image}`);
 
 function goToCarousel(index: number) {
   clickedSlide.value = index;

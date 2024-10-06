@@ -6,7 +6,7 @@
             class="album" 
             v-for="({previewPic, name}) in albums" :key="name" 
             >
-                <img :src="`/images/${name}/${previewPic}`">
+                <img :src="`/images/original/${name}/${previewPic}`">
                 <div class="title">{{name}}</div>
             </div>
         </div>
