@@ -6,6 +6,7 @@
           v-for="(image, index) in images" :key="image" 
         >         
           <img 
+            loading="lazy"
             :src="`/images/resized/${album}/${getResizedImageFilename(image, 640)}`" 
             :srcset="`
               /images/resized/${album}/${getResizedImageFilename(image, 420)} 420w, 

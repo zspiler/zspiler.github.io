@@ -4,6 +4,7 @@
             <div class="embla-container">
                 <div v-for="(image, index) in images" class="embla-slide">
                     <img 
+                        loading="lazy"
                         :src="`/images/resized/${album}/${getResizedImageFilename(image, 1024)}`" 
                         :srcset="`
                         /images/resized/${album}/${getResizedImageFilename(image, 640)} 640w, 
@@ -35,7 +36,6 @@ const images = (imageList as Record<string, string[]>)[props.album] ?? [];
 
 function logSlidesInView(emblaApi) {
     console.log(emblaApi.slidesInView())
-    console.log(emblaApi);
 }
 
 onMounted(() => {
