@@ -4,7 +4,7 @@
             <div class="embla-container">
                 <div v-for="(image, index) in images" class="embla-slide">
                     <img 
-                        loading="lazy"
+                        v-if="imagesToFetch.includes(index)"
                         :src="`/images/resized/${album}/${getResizedImageFilename(image, 1024)}`" 
                         :srcset="`
                         /images/resized/${album}/${getResizedImageFilename(image, 640)} 640w, 
@@ -34,8 +34,26 @@ const [emblaRef, emblaApi] = emblaCarouselVue({duration: 0})
 
 const images = (imageList as Record<string, string[]>)[props.album] ?? [];
 
+const imagesToFetch = ref(props.initialSlide ? [props.initialSlide] : [0])
+
 function logSlidesInView(emblaApi) {
-    console.log(emblaApi.slidesInView())
+    prefetchImages(emblaApi.slidesInView())
+}
+
+function prefetchImages(slidesInView: number[]) {
+    const minSlideInView = Math.min(...slidesInView)
+    const maxSlideInView = Math.max(...slidesInView)
+    const afterBuffer = [maxSlideInView + 1, maxSlideInView + 2]
+    const beforeBuffer = [minSlideInView - 2, minSlideInView - 1]
+
+    const slidesToFetch = [...beforeBuffer, ...slidesInView, ...afterBuffer] 
+
+    slidesToFetch
+        .filter(slideNum => slideNum >= 0 && slideNum < images.length)
+        .filter(slideNum => !imagesToFetch.value.includes(slideNum))
+        .forEach(slideNum => {
+            imagesToFetch.value.push(slideNum)
+        })
 }
 
 onMounted(() => {
