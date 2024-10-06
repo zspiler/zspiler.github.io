@@ -6,7 +6,7 @@
             class="album" 
             v-for="({previewPic, name}) in albums" :key="name" 
             >
-                <img :src="`/images/original/${name}/${previewPic}`">
+                <img :src="`/images/resized/${name}/${getResizedImageFilename(previewPic, 420)}`" :alt="`Album ${name}`" />
                 <div class="title">{{name}}</div>
             </div>
         </div>
@@ -46,8 +46,16 @@ async function openAlbum(albumName: string) {
   width: 100%;
   max-width: 1400px; 
   margin: 0 auto; 
+
+ @media (max-width: 600px) {
+    & {
+      width: 95%;
+      gap: 10px;
+    }
+  }
 }
 
+ 
 .title {
     position: absolute;
     bottom: 0;

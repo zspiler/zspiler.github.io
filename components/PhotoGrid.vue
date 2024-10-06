@@ -4,18 +4,18 @@
           @click="goToCarousel(index)" 
           class="photo" 
           v-for="(image, index) in images" :key="image" 
-        >           
+        >         
           <img 
-            :src="`/images/original/${album}/${image}`" 
+            :src="`/images/resized/${album}/${getResizedImageFilename(image, 640)}`" 
             :srcset="`
-              /images/resized/${album}/${getResizedImageFilename(image, 420)} 320w, 
+              /images/resized/${album}/${getResizedImageFilename(image, 420)} 420w, 
               /images/resized/${album}/${getResizedImageFilename(image, 640)} 640w, 
               /images/resized/${album}/${getResizedImageFilename(image, 1024)} 1024w, 
-              /images/resized/${album}/${getResizedImageFilename(image, 1920)} 1920w
             `" 
-            sizes="100vw, (min-width: 640px) 50vw, (min-width: 1024px) 400px"
+            sizes="20vw"
             :alt="`Image ${index}`" 
           />
+          <!-- NOTE: sizes not optimal but this is extremely boring -->
         </div>
     </div>
 
@@ -56,7 +56,15 @@ function goToCarousel(index: number) {
   width: 100%;
   max-width: 1400px; 
   margin: 0 auto; 
+
+  /* minimum of two columns on small screens / mobile */
+  @media (max-width: 600px) {
+    & {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
 }
+
 
 .photo {
   position: relative;

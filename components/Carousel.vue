@@ -4,16 +4,15 @@
             <div class="embla-container">
                 <div v-for="(image, index) in images" class="embla-slide">
                     <img 
-                        :src="`/images/original/${album}/${image}`" 
+                        :src="`/images/resized/${album}/${getResizedImageFilename(image, 1024)}`" 
                         :srcset="`
-                        /images/resized/${album}/${getResizedImageFilename(image, 420)} 320w, 
                         /images/resized/${album}/${getResizedImageFilename(image, 640)} 640w, 
                         /images/resized/${album}/${getResizedImageFilename(image, 1024)} 1024w, 
-                        /images/resized/${album}/${getResizedImageFilename(image, 1920)} 1920w
                         `" 
-                        sizes="100vw, (min-width: 640px) 50vw, (min-width: 1024px) 400px"
+                        sizes="70vw"
                         :alt="`Image ${index}`" 
                     />
+                    <!-- NOTE: sizes not optimal but this is extremely boring -->
                     <label class="counter">{{ index + 1 }} / {{ images.length }}</label>
                 </div>
             </div>
