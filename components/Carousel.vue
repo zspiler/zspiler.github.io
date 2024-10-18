@@ -7,10 +7,11 @@
                         v-if="imagesToFetch.includes(index)"
                         v-show="fetchedImages.includes(index)"
                         :src="`/images/${album}/${image}`" 
-                        sizes="100vw sm:50vw md:1000px" 
+                        sizes="100vw sm:50vw md:700px" 
                         @load="onImgLoad(index)"
                         :modifiers="{ rotate: null }" 
                         :alt="`Image ${index}`" 
+                        quality="80"
                     />
                     
                     <Loader class="loader" v-if="!fetchedImages.includes(index)" />
