@@ -4,19 +4,13 @@
           @click="goToCarousel(index)" 
           class="photo" 
           v-for="(image, index) in images" :key="image" 
-        >         
-          <img 
-            loading="lazy"
-            :src="`/images/resized/${album}/${getResizedImageFilename(image, 640)}`" 
-            :srcset="`
-              /images/resized/${album}/${getResizedImageFilename(image, 420)} 420w, 
-              /images/resized/${album}/${getResizedImageFilename(image, 640)} 640w, 
-              /images/resized/${album}/${getResizedImageFilename(image, 1024)} 1024w, 
-            `" 
-            sizes="20vw"
-            :alt="`Image ${index}`" 
+        > 
+          <NuxtImg 
+            :src="`/images/${album}/${image}`" 
+            sizes="100vw sm:50vw md:600px" 
+            loading="lazy" 
+            :modifiers="{ rotate: null }"  
           />
-          <!-- NOTE: sizes not optimal but this is extremely boring -->
         </div>
     </div>
 

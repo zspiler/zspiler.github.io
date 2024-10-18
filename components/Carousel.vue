@@ -3,22 +3,18 @@
         <div class="embla" ref="emblaRef">
             <div class="embla-container">
                 <div v-for="(image, index) in images" class="embla-slide">
-                    <img 
+                    <NuxtImg 
                         v-if="imagesToFetch.includes(index)"
                         v-show="fetchedImages.includes(index)"
-                        :src="`/images/resized/${album}/${getResizedImageFilename(image, 1024)}`" 
-                        :srcset="`
-                        /images/resized/${album}/${getResizedImageFilename(image, 640)} 640w, 
-                        /images/resized/${album}/${getResizedImageFilename(image, 1024)} 1024w, 
-                        `" 
+                        :src="`/images/${album}/${image}`" 
+                        sizes="100vw sm:50vw md:1000px" 
                         @load="onImgLoad(index)"
-                        sizes="70vw"
+                        :modifiers="{ rotate: null }" 
                         :alt="`Image ${index}`" 
                     />
                     
                     <Loader class="loader" v-if="!fetchedImages.includes(index)" />
-                    
-                    <!-- NOTE: sizes not optimal but this is extremely boring -->
+                
                     <label v-show="fetchedImages.includes(index)" class="counter">{{ index + 1 }} / {{ images.length }}</label>
                 </div>
             </div>

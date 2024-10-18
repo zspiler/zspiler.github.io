@@ -6,7 +6,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.join(path.dirname(__filename), '..');
 
 async function generateImageList() {
-    const baseDir = path.join(__dirname, 'public/images/original');
+    const baseDir = path.join(__dirname, 'public/images');
 
     const albums = fs.readdirSync(baseDir, { withFileTypes: true })
         .filter(dirent => dirent.isDirectory())

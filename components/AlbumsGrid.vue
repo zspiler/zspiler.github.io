@@ -6,7 +6,13 @@
             class="album" 
             v-for="({previewPic, name}) in albums" :key="name" 
             >
-                <img :src="`/images/resized/${name}/${getResizedImageFilename(previewPic, 420)}`" :alt="`Album ${name}`" />
+                <NuxtImg 
+                    :src="`/images/${name}/${previewPic}`" 
+                    sizes="100vw sm:50vw md:500px" 
+                    :modifiers="{ rotate: null }"  
+                    :alt="`Album ${name}`"
+                />
+                
                 <div class="title">{{name}}</div>
             </div>
         </div>
@@ -15,7 +21,7 @@
 
 <script setup lang="ts">
 
-// TODO API
+// TODO API!
 const albums = [ 
     { name: 'japan_18', previewPic: '41410528_715477295465992_1207891247161749266_n_17955959389188583.jpg' }, 
     { name: 'japan_24', previewPic: '403376365_156951194143951_2974837460663147686_n_17986806374289904.jpg' }, 
