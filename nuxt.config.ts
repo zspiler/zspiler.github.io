@@ -8,10 +8,11 @@ export default defineNuxtConfig({
   hooks: {
     'build:before': () => {
       execSync('node scripts/generateImagesJson.js', { stdio: 'inherit' });
+      execSync('node scripts/generateResponsiveImages.js', { stdio: 'inherit' });
     }
   },
   css: [
     '@/assets/css/main.less',
   ],
-  modules: ['@pinia/nuxt', '@nuxt/image'],
+  modules: ['@pinia/nuxt'],
 })

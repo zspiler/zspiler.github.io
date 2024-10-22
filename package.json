@@ -10,7 +10,6 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "@nuxt/image": "^1.8.1",
     "@pinia/nuxt": "^0.5.4",
     "embla-carousel-vue": "^8.3.0",
     "nuxt": "^3.13.0",
