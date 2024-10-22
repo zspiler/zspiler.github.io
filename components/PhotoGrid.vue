@@ -7,9 +7,10 @@
         > 
           <NuxtImg 
             :src="`/images/${album}/${image}`" 
-            sizes="100vw sm:50vw md:600px" 
+            sizes="50vw sm:35vw md:300px" 
             loading="lazy" 
             :modifiers="{ rotate: null }"  
+            quality="75"
           />
         </div>
     </div>
